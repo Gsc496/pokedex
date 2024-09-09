@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <main class="flex flex-col items-stretch" id="main">
+        <!--w-4/5-->
+        <header class="self-center w-4/5 flex flex-row my-1 bg-black">
+            <div class="my-1">
+                <img src="img/logo-pokedex.png" alt="logo-pokedex.png" width="100">
+            </div>
+            <div class="flex w-72 mx-4 justify-between">
+                <div class="my-4">
+                    <button class="text-slate-50 bg-blue-500" id="tipos">Pokémon por tipos
+                    </button>
+                </div>
+                <div class="my-4">
+                    <button
+                    class="text-slate-50 bg-blue-500" id="busqueda">Pokémon     busqueda
+                    </button>
+                </div>
+            </div>
+            </div>
+        </header>
+        <!-- -->
+
+        <form class="flex flex-row self-center w-4/5" action="#" id="buscar">
+            <input class="p-2 self-center w-4/5 my-1 border-solid border border-black" type="text" id="txtPokemon">
+            <button class="w-1/5 bg-gray-200 h-11 my-1" id="btnBuscar">Buscar</button>
+        </form>
+
+        <div class="grid grid-cols-12 gap-4 p-2 self-center w-4/5 my-1 border-solid border border-black" id="botonera">
+            <button class="bg-blue-500 text-slate-50" id="normal">normal</button>
+            <button class="bg-gray-500 text-slate-50" id="fighting">fighting</button>
+            <button class="bg-green-700 text-slate-50" id="flying">flying</button>
+            <button class="bg-red-400 text-slate-50" id="poison">poison</button>
+            <button class="bg-yellow-500 text-black" id="ground">ground</button>
+            <button class="bg-cyan-500 text-black" id="rock">rock</button>
+            <button class="bg-gray-100 text-black" id="bug">bug</button>
+            <button class="bg-black text-slate-50" id="ghost">ghost</button>
+            <button class="bg-blue-500 text-slate-50" id="steel">steel</button>
+            <button class="bg-gray-500 text-slate-50" id="fire">fire</button>
+            <button class="bg-green-700 text-slate-50" id="water">water</button>
+            <button class="bg-red-400 text-slate-50" id="grass">grass</button>
+            <button class="bg-yellow-500 text-black" id="electric">electric</button>
+            <button class="bg-cyan-500 text-black" id="psychic">psychic</button>
+            <button class="bg-gray-100 text-black" id="ice">ice</button>
+            <button class="bg-black text-slate-50" id="dragon">dragon</button>
+            <button class="bg-blue-500 text-slate-50" id="dark">dark</button>
+            <button class="bg-gray-500 text-slate-50" id="fairy">fairy</button>
+            <button class="bg-green-700 text-slate-50" id="unknown">unknown</button>
+            <button class="bg-red-400 text-slate-50" id="shadow">shadow</button>
+
+            <audio src="">play</audio>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 p-2 self-center w-4/5 my-1 border-solid border border-black" id="contenido">
+            
+        </div>
+
+        <div class="flex flex-row justify-center self-center w-3/5 my-1 border-solid border border-black p-10 " id="contenido_busqueda">
+
+        </div>
+
+            
+
+        
+    <!--<div class="grid grid-cols-4 place-items-stretch self-center w-4/5 my-1 border-solid border border-black h-20 " id="contenido">
+            <div>
+            </div>
+        </div>-->
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
