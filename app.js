@@ -31,7 +31,7 @@ document.querySelector('#busqueda').addEventListener('click', async function() {
 
 document.querySelector('#btnBuscar').addEventListener('click', async function() {
 
-    let busqueda = document.getElementById('txtPokemon').value;
+    let busqueda = document.getElementById('txtPokemon').value.toLowerCase();
 
     _listado_completo(busqueda);
     //console.log(lista_pokemones);
@@ -106,7 +106,7 @@ async function _listado_completo(busqueda) {
                                 Datos
                             </div>
 
-                            <div class="grid grid-cols-2">
+                            <div class="flex flex col md:grid md:grid-cols-2">
                                 <div class='text-center'>
                                     <p>
                                         Altura
