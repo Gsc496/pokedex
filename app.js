@@ -5,11 +5,14 @@ var url_imagen;
 var listeners = {};
 var stats;
 var types;
+var sonido;
 `<`
 
 document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('buscar').style.display = 'none';
     document.getElementById('contenido_busqueda').style.display = 'none';
+    document.getElementById('img').style.display = 'none';
+    document.getElementById('datos').style.display = 'none';
 
     limpiar();
 
@@ -24,7 +27,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 document.querySelector('#busqueda').addEventListener('click', async function() {
     document.getElementById('botonera').style.display = 'none';
     document.getElementById('buscar').style.display = 'flex';
-    document.getElementById('contenido').style.display = 'none';document.getElementById('contenido_busqueda').innerHTML = '';
+    document.getElementById('contenido').style.display = 'none';
+    document.getElementById('contenido_busqueda').style.display = 'flex';
+    document.getElementById('img').style.display = 'none';
+    document.getElementById('datos').style.display = 'none';
 
     limpiar();
 });
@@ -34,7 +40,6 @@ document.querySelector('#btnBuscar').addEventListener('click', async function() 
     let busqueda = document.getElementById('txtPokemon').value.toLowerCase();
 
     _listado_completo(busqueda);
-    //console.log(lista_pokemones);
 });
 
 document.querySelector('#tipos').addEventListener('click', async function() {
@@ -51,7 +56,7 @@ document.querySelector('#tipos').addEventListener('click', async function() {
 });
 
 async function _listado_completo(busqueda) {
-    document.getElementById('contenido_busqueda').innerHTML = '';
+    
     types = '';
 
     let encontrado = false;
@@ -59,20 +64,16 @@ async function _listado_completo(busqueda) {
     for (let i = 0; i < lista_tipos.length && !encontrado; i++) {
         await _pokemones(i);
 
-        //console.log('tipo: ' + i);
-
         for (let j = 0; j < lista_pokemones.length && !encontrado; j++) {
-            //console.log(lista_pokemones[j].pokemon);
-            //console.log('Pokemon no.: ' + j);
+            //let sound = new Audio(`${sonido}`);
 
             if (busqueda === await lista_pokemones[j].pokemon.name) {
                 await _habilidades(j);
                 await _imagen(j);
 
-                //console.log(lista_habilidades[j]);
+                console.log(sonido);
 
                 for(k = 0; k < await stats.types.length; k++){
-                    //console.log(k);
 
                     var colorCode = `${k}0d${k}${k}e`;
 
@@ -83,62 +84,39 @@ async function _listado_completo(busqueda) {
                     `;
                 }
 
-                document.getElementById('contenido_busqueda').style.display = 'flex';
+                document.getElementById('img').style.display = 'flex';
+                document.getElementById('datos').style.display = 'flex';
 
-                document.querySelector('#contenido_busqueda').innerHTML += `
-                    <div>
-                        <img src="${url_imagen}" alt="${lista_pokemones[j].pokemon.name}" width="150">
-                    </div>
+                document.querySelector('#img').innerHTML = `
+                    <img src="${url_imagen}" alt="${lista_pokemones[j].pokemon.name}" width="150">
 
-                    <div>
+                `;   
 
-                        <div>
+                document.querySelector('#name').innerHTML = `
+                    <strong>${await lista_pokemones[j].pokemon.name}</strong>
+                `; 
 
-                            <div>
-                                <strong>${await lista_pokemones[j].pokemon.name}</strong>
-                            </div>
+                document.querySelector('#altura').innerHTML = `
+                    ${await (stats.height)/10}m
+                `; 
 
-                        </div>
-                    
-                        <div class='border border solid border-blue-600'>
+                document.querySelector('#peso').innerHTML = `
+                    ${await (stats.weight)/10}kg
+                `; 
 
-                            <div class='border border-gray'>
-                                Datos
-                            </div>
-
-                            <div class="flex flex col md:grid md:grid-cols-2">
-                                <div class='text-center'>
-                                    <p>
-                                        Altura
-                                    </p>
-                                    <p>
-                                        ${await (stats.height)/10}m
-                                    </p>
-                                </div>
-                                <div class='text-center'>
-                                    <p>
-                                        Peso
-                                    </p>
-                                    <p>
-                                        ${await (stats.weight)/10}kg
-                                    </p>
-                                </div>
-                    
-                            </div>
-
-                            <div>
-                                Tipos
-                            </div>
-
-                            <div class='grid grid-cols-2'>
-                                ${types}
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                document.querySelector('#tipos_poke').innerHTML = `
+                    ${types}
                 `;
+
+                document.querySelector('#play').addEventListener('click', async function (){
+                    var audioElement = document.getElementById('player');
+                    var sourceElement = document.getElementById('oggSource');
+
+                    sourceElement.src = `${sonido}`;
+
+                    audioElement.load();
+                    audioElement.play();
+                })
 
                 encontrado = true;
             }
@@ -152,7 +130,6 @@ async function eventos(tips) {
     limpiar();
     
     for(let i = 0; i < tips.length; i++) {
-        //console.log(i);
 
         let listener = async function() {
 
@@ -161,10 +138,6 @@ async function eventos(tips) {
             await _pokemones(i);
             
             for(let j = 0; j < lista_pokemones.length; j++){
-                //console.log(await lista_pokemones[j].pokemon.name);
-
-                //console.log(j);
-
                 var habilidades_html =  ``;
 
                 await _habilidades(j);
@@ -172,7 +145,6 @@ async function eventos(tips) {
                 await _imagen(j);
                 
                 for(let k = 0; k < lista_habilidades.length; k++){
-                    //console.log(lista_habilidades[k].ability.name);
 
                     habilidades_html += `
                         <div >
@@ -222,8 +194,6 @@ async function _pokemones(index) {
     var res = await pokemones_tmp.json();
 
     lista_pokemones = res.pokemon;
-
-    //console.log(lista_pokemones);
 }
 
 async function _habilidades(index) {
@@ -231,10 +201,9 @@ async function _habilidades(index) {
     var res = await habilidades_tmp.json();
 
     stats = res;
+    sonido = res.cries.latest;
 
     lista_habilidades = res.abilities;
-
-    //console.log(lista_habilidades);
 }
 
 async function _imagen(index) {
