@@ -115,7 +115,10 @@ async function _listado_completo(busqueda) {
                     sourceElement.src = `${sonido}`;
 
                     audioElement.load();
-                    audioElement.play();
+
+                    audioElement.addEventListener('canplaythrough', function() {
+                        audioElement.play();
+                    }, { once: true });
                 })
 
                 encontrado = true;
