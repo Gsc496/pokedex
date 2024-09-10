@@ -108,18 +108,24 @@ async function _listado_completo(busqueda) {
                     ${types}
                 `;
 
-                document.querySelector('#play').addEventListener('click', async function (){
+                document.querySelector('#play').addEventListener('click', async function() {
                     var audioElement = document.getElementById('player');
                     var sourceElement = document.getElementById('oggSource');
-
+                
                     sourceElement.src = `${sonido}`;
+                    try {
+                        await audioElement.load();  
 
-                    audioElement.load();
-
-                    audioElement.addEventListener('canplaythrough', function() {
-                        audioElement.play();
-                    }, { once: true });
-                })
+                        if (audioElement.paused) {
+                            await audioElement.play(); 
+                        } else {
+                            audioElement.pause();
+                        }
+                    } catch (error) {
+                        console.error("Error al intentar reproducir el sonido:", error);
+                    }
+                });
+                
 
                 encontrado = true;
             }
