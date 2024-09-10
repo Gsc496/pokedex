@@ -1,1 +1,2 @@
-No encontre el enlace a los sonidos de los pokemones
+version 2
+Reestructuracion y adicion de boton play
